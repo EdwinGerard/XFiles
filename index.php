@@ -1,15 +1,15 @@
 <?php include('inc/head.php'); ?>
 <?php
 
-if(!empty($_GET["name"])) {
-    if(!is_dir($_GET["name"])) {
-        unlink($_GET["name"]);
+if (!empty($_GET[ "name" ])) {
+    if (!is_dir($_GET[ "name" ])) {
+        unlink($_GET[ "name" ]);
     } else {
-        $path=($_GET["name"]);
+        $path = ($_GET[ "name" ]);
         $handle = opendir($path);
         while (false !== ($file = readdir($handle))) {
             if ($file != '.' and $file != '..') {
-                $fullpath = $path ."/". $file;
+                $fullpath = $path . "/" . $file;
                 if (is_dir($fullpath)) rmdir_recurse($fullpath); else unlink($fullpath);
             }
         }
@@ -20,13 +20,15 @@ if(!empty($_GET["name"])) {
 /**
  * @param $dir
  */
-function mkmap($dir) {
-    echo "<ul>"; $folder = opendir ($dir);
-    while ($file = readdir ($folder)) {
+function mkmap ($dir)
+{
+    echo "<ul>";
+    $folder = opendir($dir);
+    while ($file = readdir($folder)) {
         if ($file != "." && $file != "..") {
-            $extension= pathinfo($file, PATHINFO_EXTENSION);
-            $pathfile = $dir.'/'.$file;
-            if ($extension =="txt" || $extension =="html") {
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $pathfile = $dir . '/' . $file;
+            if ($extension == "txt" || $extension == "html") {
                 echo "<li>
                         <p>
                             <a class=\"green\" type=\"submit\" method=\"GET\" href=\"delete.php?f=$pathfile\">$file</a>
@@ -45,20 +47,17 @@ function mkmap($dir) {
                         </p>
                       </li>";
             }
-            if(filetype($pathfile) == 'dir') {
+            if (filetype($pathfile) == 'dir') {
                 mkmap($pathfile);
             }
         }
     }
-    closedir ($folder);
+    closedir($folder);
     echo "</ul>";
 }
+
 mkmap('files');
 ?>
-
-
-
-
 
 
 <?php include('inc/foot.php'); ?>

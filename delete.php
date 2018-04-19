@@ -11,15 +11,15 @@
 
 <?php
 
-if(isset($_POST["content"])) {
-    $file = $_POST["file"];
-    $fichier = fopen($file,"w");
-    fwrite($fichier, $_POST["content"]);
+if (isset($_POST[ "content" ])) {
+    $file = $_POST[ "file" ];
+    $fichier = fopen($file, "w");
+    fwrite($fichier, $_POST[ "content" ]);
     fclose($fichier);
     header("location:index.php");
 }
-if(!empty($_GET["f"])) {
-    $file = $_GET["f"];
+if (!empty($_GET[ "f" ])) {
+    $file = $_GET[ "f" ];
     $content = file_get_contents($file);
 
     ?>
@@ -29,15 +29,13 @@ if(!empty($_GET["f"])) {
                 <textarea name="content" style="height:50vh;" class="form-control">
                     <?= $content; ?>
                 </textarea>
-            <input type="hidden" name="file" value="<?= $_GET["f"] ?>">
+            <input type="hidden" name="file" value="<?= $_GET[ "f" ] ?>">
             <input type="submit" value="Modifier">
         </form>
     </div>
     <?php
 }
 ?>
-
-
 
 
 <?php include('inc/foot.php'); ?>
