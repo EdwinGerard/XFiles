@@ -10,7 +10,9 @@ if (!empty($_GET[ "name" ])) {
         while (false !== ($file = readdir($handle))) {
             if ($file != '.' and $file != '..') {
                 $fullpath = $path . "/" . $file;
-                if (is_dir($fullpath)) rmdir_recurse($fullpath); else unlink($fullpath);
+                if (is_dir($fullpath)) {
+                    removeDirectory($fullpath);
+                } else unlink($fullpath);
             }
         }
         closedir($handle);
@@ -54,6 +56,15 @@ function mkmap ($dir)
     }
     closedir($folder);
     echo "</ul>";
+}
+
+function removeDirectory($path) {
+    $files = glob($path . '/*');
+    foreach ($files as $file) {
+        is_dir($file) ? removeDirectory($file) : unlink($file);
+    }
+    rmdir($path);
+    return;
 }
 
 mkmap('files');
