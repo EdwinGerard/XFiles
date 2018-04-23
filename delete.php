@@ -25,7 +25,7 @@ if (!empty($_GET[ "f" ])) {
     ?>
     <div>
         <a href="index.php" class="btn">home</a>
-        <form method="GET" action="delete.php">
+        <form method="POST" action="delete.php">
                 <textarea name="content" style="height:50vh;" class="form-control">
                     <?= $content; ?>
                 </textarea>
